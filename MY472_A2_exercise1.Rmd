@@ -6,6 +6,8 @@ output: html_document
 ---
 
 ```{r}
-a <- function(x)
+
+
+
 ```
 
