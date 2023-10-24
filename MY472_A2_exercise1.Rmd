@@ -1,0 +1,11 @@
+---
+title: "Assignment 2 Exercise 1"
+author: "Songying Chen"
+date: "Oct 24 2023"
+output: html_document
+---
+
+```{r}
+a <- function(x)
+```
+
