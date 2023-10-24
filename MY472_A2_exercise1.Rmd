@@ -1,13 +1,76 @@
 ---
-title: "Assignment 2 Exercise 1"
+title: "Assignment 2 Exercise 1 Function Explanation"
 author: "Songying Chen"
 date: "Oct 24 2023"
 output: html_document
 ---
 
+This is the document for explaining the insights of the function fertility_rate.
+
+
+## The first edition of the function
+
+The first edition of the function doesn't include the second argument. And the 
+main point of the first function is to get the real fertility rate of Swiss based
+on the dataset "swiss".
+
+The following code shows how the first edition of the function works.
+
+```{r, include = FALSE}
+df <- data(swiss)
+```
+
+```{r, 1st edition, echo=TRUE}
+#set a function to get the real fertility rate of Swiss
+fertility_rate <- function(data){
+  #divide the old variable by 100 and plus 1 to get the meaningful fertility rate
+    data$Fertility = data$Fertility/100 + 1 
+  return(data$Fertility) #return the new data set
+}
+```
+
+If I input the data set "swiss", the follwing list is the result of the function
+that displays the true fertility rate in a right scale.
+
 ```{r}
+fertility_rate(swiss)
+```
+
+## The second edition of the function
+
+The second edition mainly use the second argument as a tool. The second argument
+means the warning line or caution line of fertility rate, usually set as 1.5. 
+The second edition of function is to create a new variable that indicates whether
+the fertility rate in certain province is under the caution line.
+
+```{r, include=FALSE}
+library(dplyr)
+#select data set swiss
+df <- data(swiss)
+```
 
 
+In the second function, the output shows a new data set with a new variable called
+under_caution, indicating whether the fertility rate is under caution line. If the 
+fertility rate of certain province is under the caution line, the variable will
+be 1, otherwise it will be 0.
 
+
+```{r,2nd edition, echo=TRUE}
+fertility_rate <- function(data,caution){
+  #divide the old variable by 100 and plus 1 to get the meaningful fertility rate
+    data$Fertility = data$Fertility/100 + 1 
+  #creat a new variable to see if the fertility rate is above caution rate
+  data <- mutate(data, under_caution = ifelse(Fertility > caution, 0, 1))
+  return(data) #return the new data set
+}
+```
+
+The follwoing data set is a new one based on the second argument "caution". The
+input of the function is (swiss, caution = 1.5). So the data shows the true fertility
+rate as well as whether the fertility rate is under 1.5.
+
+```{r}
+fertility_rate(swiss,1.5)
 ```
 
